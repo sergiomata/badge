@@ -3,8 +3,22 @@ import confLogo from "../images/badge-header.svg";
 import "./styles/Navbar.css";
 
 class BadgeForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstName: "",
+      lastName: "",
+      email: "",
+      jobTitle: "",
+      twitter: ""
+    };
+  }
+
   handleChange = event => {
-    console.log({ name: event.target.name, value: event.target.value });
+    // console.log({ name: event.target.name, value: event.target.value });
+    this.setState({
+      [event.target.name]: event.target.value
+    });
   };
 
   handleClick = event => {
@@ -14,6 +28,7 @@ class BadgeForm extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     console.log("form was submited");
+    console.log(this.state);
   };
 
   render() {
@@ -28,6 +43,39 @@ class BadgeForm extends React.Component {
               className="form-control"
               type="text"
               name="firstName"
+              value={this.state.firstName}
+            ></input>
+            <label> Last Name</label>
+            <input
+              onChange={this.handleChange}
+              className="form-control"
+              type="text"
+              name="lastName"
+              value={this.state.lastName}
+            ></input>
+            <label> Email</label>
+            <input
+              onChange={this.handleChange}
+              className="form-control"
+              type="email"
+              name="email"
+              value={this.state.email}
+            ></input>
+            <label> Job Title</label>
+            <input
+              onChange={this.handleChange}
+              className="form-control"
+              type="text"
+              name="jobTitle"
+              value={this.state.jobTitle}
+            ></input>
+            <label> Twitter</label>
+            <input
+              onChange={this.handleChange}
+              className="form-control"
+              type="text"
+              name="twitter"
+              value={this.state.twitter}
             ></input>
             <button onClick={this.handleClick} className="btn btn-primary">
               Save
