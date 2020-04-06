@@ -1,0 +1,47 @@
+.Badge__container {
+  margin-top: 10px;
+  background: #ffffff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 2px 2px 2px 2px;
+  overflow: hidden;
+}
+
+.Badge__image {
+  border-radius: 50%;
+  margin-left: 25px;
+  height: 70px;
+  margin-top: 15px;
+  align-content: center;
+}
+
+.Badge__name {
+  font-weight: bold;
+  padding-top: 10px;
+  padding-left: 20px;
+}
+
+.Badge__image__twitter {
+  width: 20px;
+  height: 20px;
+  margin-left: 35px;
+  margin-bottom: 20px;
+  margin-top: -15px;
+}
+
+.Badge__text__twitter {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  margin-top: -17px;
+  color: #3399ff;
+}
+
+.Badge__jobTitle {
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-top: -15px;
+}
+/* .column {
+  float: left;
+} */
