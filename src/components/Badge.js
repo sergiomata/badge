@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import "./styles/Badge.css";
 import confLogo from "../images/badge-header.svg";
 import BadgesList from "./BadgesList";
+import PageError from "./PageError";
+import PageLoading from "./PageLoading";
 import api from "../api";
 
 class Badge extends React.Component {
@@ -55,10 +57,10 @@ class Badge extends React.Component {
 
   render() {
     if (this.state.loading) {
-      return "loading...";
+      return <PageLoading />;
     }
     if (this.state.error) {
-      return `Error: ${this.state.error}`;
+      return <PageError error={this.state.error} />;
     }
 
     return (
