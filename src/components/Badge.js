@@ -1,33 +1,88 @@
 import React from "react";
-import confLogo from "../images/badge-header.svg";
+import { Link } from "react-router-dom";
+
 import "./styles/Badge.css";
+import confLogo from "../images/badge-header.svg";
+import BadgesList from "./BadgesList";
+import api from "../api";
 
 class Badge extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loading: true,
+      error: null,
+      data: undefined,
+    };
+  }
+
+  componentDidMount() {
+    this.getData();
+  }
+
+  getData = async () => {
+    this.setState({ lading: true, error: null });
+
+    try {
+      const data = await api.badges.list();
+      this.setState({
+        loading: false,
+        data: data,
+      });
+    } catch (error) {
+      this.setState({
+        loading: false,
+        error: error,
+      });
+    }
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log({
+      prevProps: prevProps,
+      prevState: prevState,
+    });
+
+    console.log({
+      props: this.props,
+      state: this.state,
+    });
+  }
+
+  componentWillUnmount() { }
+
   render() {
-    const firstName = "Sergio";
-    const lastName = "Mata";
+    if (this.state.loading) {
+      return "loading...";
+    }
+    if (this.state.error) {
+      return `Error: ${this.state.error}`;
+    }
 
     return (
       <React.Fragment>
-        <div className="Badge">
-          <div className="Badge__header">
-            <img src={confLogo} alt="Logo de la conferencia"></img>
+        <div className="Badges">
+          <div className="Badges__hero">
+            <div className="Badges__container">
+              <img
+                className="Badges_conf-logo"
+                src={confLogo}
+                alt="Conf Logo"
+              />
+            </div>
           </div>
-          <div className="Badge__section-name">
-            <img
-              className="Badge__avatar"
-              src={this.props.avatarUrl}
-              alt="Avatar"
-            ></img>
-            <h1>
-              {this.props.firstName} <br /> {this.props.lastName}
-            </h1>
+        </div>
+
+        <div className="Badges__container">
+          <div className="Badges__buttons">
+            <Link to="/badges/new" className="btn btn-primary">
+              New Badge
+            </Link>
           </div>
-          <div className="Badge__section-info">
-            <h3> {this.props.jobTitle}</h3>
-            <div>@{this.props.twitter}</div>
-          </div>
-          <div className="Badge__footer">#PlatziConf</div>
+
+          <BadgesList badges={this.state.data} />
         </div>
       </React.Fragment>
     );
