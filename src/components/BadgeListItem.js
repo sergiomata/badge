@@ -15,7 +15,7 @@ class BadgeListItem extends React.Component {
         </div>
         <div className="colum">
           <p className="Badge__name">
-            {badge.fistName} {badge.lastName}
+            {badge.firstName} {badge.lastName}
           </p>
           <div className="row">
             <img

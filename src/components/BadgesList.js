@@ -21,7 +21,10 @@ class BadgeList extends React.Component {
         {this.props.badges.map((badge) => {
           return (
             <li key={badge.id} className="Badge__container">
-              <BadgeListItem badge={badge} />
+              {/* bootstrap clases to delete blur */}
+              <Link className="text-reset text-decoration-none" to={`/Badges/${badge.id}`} >
+                <BadgeListItem badge={badge} />
+              </Link>
             </li>
           );
         })}

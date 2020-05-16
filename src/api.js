@@ -34,6 +34,7 @@ const api = {
       });
     },
     read(badgeId) {
+      //throw new Error('500: Internal Server Error');
       return callApi(`/badges/${badgeId}`);
     },
     update(badgeId, updates) {
