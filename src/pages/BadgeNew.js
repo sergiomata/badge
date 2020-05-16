@@ -2,6 +2,7 @@ import React from "react";
 import header from "../images/platziconf-logo.svg";
 import Badge from "../components/Badge";
 import BadgeForm from "../components/BadgeForm";
+import api from "../api";
 
 import "./styles/BadgeNew.css";
 
@@ -26,6 +27,18 @@ class BadgeNew extends React.Component {
     });
   };
 
+  handleSubmit = async e => {
+    e.preventDefault();
+    this.setState({ loading: true, error: null });
+
+    try {
+      await api.badges.create(this.state.form);
+      this.setState({ loading: false });
+    } catch (error) {
+      this.setState({ loading: false, error: error });
+    }
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -37,23 +50,25 @@ class BadgeNew extends React.Component {
             <div className="row">
               <div className="col-6">
                 <Badge
-                  firstName={this.state.form.firstName || 'First Name'}
-                  lastName={this.state.form.lastName || 'Last Name'}
-                  avatarUrl={this.state.form.avatarUrl || "https://www.gravatar.com/avatar/0fc6d5ee2ee176d4581acf6a7e5644cc?d=identicon"}
-                  jobTitle={this.state.form.jobTitle || "Job Title"}
-                  twitter={this.state.form.twitter || "Twitter"}
+                  firstName={this.state.form.firstName || 'FIRST_NAME'}
+                  lastName={this.state.form.lastName || 'LAST_NAME'}
+                  twitter={this.state.form.twitter || 'twitter'}
+                  jobTitle={this.state.form.jobTitle || 'JOB_TITLE'}
+                  email={this.state.form.email || 'EMAIL'}
+                  avatarUrl="https://www.gravatar.com/avatar/21594ed15d68ace3965642162f8d2e84?d=identicon"
                 />
               </div>
               <div className="col-6">
                 <BadgeForm
                   onChange={this.handleChange}
+                  onSubmit={this.handleSubmit}
                   formValues={this.state.form}
                 />
               </div>
             </div>
           </div>
         </div>
-      </React.Fragment>
+      </React.Fragment >
     );
   }
 }

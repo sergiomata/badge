@@ -2,91 +2,32 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import "./styles/Badge.css";
-import confLogo from "../images/badge-header.svg";
-import BadgesList from "./BadgesList";
-import PageError from "./PageError";
-import PageLoading from "./PageLoading";
-import api from "../api";
+import confLogo from '../images/badge-header.svg';
+import Gravatar from './Gravatar';
 
 class Badge extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loading: true,
-      error: null,
-      data: undefined,
-    };
-  }
-
-  componentDidMount() {
-    this.getData();
-  }
-
-  getData = async () => {
-    this.setState({ lading: true, error: null });
-
-    try {
-      const data = await api.badges.list();
-      this.setState({
-        loading: false,
-        data: data,
-      });
-    } catch (error) {
-      this.setState({
-        loading: false,
-        error: error,
-      });
-    }
-  };
-
-  componentDidUpdate(prevProps, prevState) {
-    console.log({
-      prevProps: prevProps,
-      prevState: prevState,
-    });
-
-    console.log({
-      props: this.props,
-      state: this.state,
-    });
-  }
-
-  componentWillUnmount() { }
-
   render() {
-    if (this.state.loading) {
-      return <PageLoading />;
-    }
-    if (this.state.error) {
-      return <PageError error={this.state.error} />;
-    }
-
     return (
-      <React.Fragment>
-        <div className="Badges">
-          <div className="Badges__hero">
-            <div className="Badges__container">
-              <img
-                className="Badges_conf-logo"
-                src={confLogo}
-                alt="Conf Logo"
-              />
-            </div>
-          </div>
+      <div className="Badge">
+        <div className="Badge__header">
+          <img src={confLogo} alt="Logo de la conferencia" />
         </div>
 
-        <div className="Badges__container">
-          <div className="Badges__buttons">
-            <Link to="/badges/new" className="btn btn-primary">
-              New Badge
-            </Link>
-          </div>
-
-          <BadgesList badges={this.state.data} />
+        <div className="Badge__section-name">
+          <Gravatar className="Badge__avatar" email={this.props.email} />
+          <h1>
+            {this.props.firstName} <br /> {this.props.lastName}
+          </h1>
         </div>
-      </React.Fragment>
+
+        <div className="Badge__section-info">
+          <h3>{this.props.jobTitle}</h3>
+          <div>@{this.props.twitter}</div>
+        </div>
+
+        <div className="Badge__footer">#platziconf</div>
+      </div>
     );
   }
 }

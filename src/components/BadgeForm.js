@@ -3,39 +3,16 @@ import confLogo from "../images/badge-header.svg";
 import "./styles/Navbar.css";
 
 class BadgeForm extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     firstName: "",
-  //     lastName: "",
-  //     email: "",
-  //     jobTitle: "",
-  //     twitter: ""
-  //   };
-  // }
-
-  // handleChange = event => {
-  //   // console.log({ name: event.target.name, value: event.target.value });
-  //   this.setState({
-  //     [event.target.name]: event.target.value
-  //   });
-  // };
 
   handleClick = event => {
     console.log("button was clicked");
-  };
-
-  handleSubmit = event => {
-    event.preventDefault();
-    console.log("form was submited");
-    console.log(this.state);
   };
 
   render() {
     return (
       <div>
         <h1> New Attendant</h1>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.props.onSubmit}>
           <div className="form-group">
             <label> First Name</label>
             <input
