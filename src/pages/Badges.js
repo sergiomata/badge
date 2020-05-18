@@ -1,9 +1,11 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import confLogo from "../images/badge-header.svg";
 import BadgesList from "../components/BadgesList";
 import PageLoading from "../components/PageLoading";
 import PageError from "../components/PageError";
+import MiniLoader from "../components/MiniLoader";
 
 import "./styles/Badges.css";
 import api from "../api";
@@ -16,15 +18,27 @@ class Badges extends React.Component {
       loading: true,
       error: null,
       data: undefined,
+      intervalId: undefined
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.getData();
+
+    //pollling : cada tiempo actualice la informacion
+    const intervalId = setInterval(async () => { await this.getData() }, 5000);
+    this.setState({
+      ...this.state,
+      intervalId: intervalId
+    })
+  }
+
+  componentDidUnmount() {
+    clearInterval(this.state.intervalId);
   }
 
   getData = async () => {
-    this.setState({ lading: true, error: null });
+    this.setState({ loading: true, error: null });
 
     try {
       const data = await api.badges.list();
@@ -41,21 +55,13 @@ class Badges extends React.Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    console.log({
-      prevProps: prevProps,
-      prevState: prevState,
-    });
 
-    console.log({
-      props: this.props,
-      state: this.state,
-    });
   }
 
   componentWillUnmount() { }
 
   render() {
-    if (this.state.loading) {
+    if (this.state.loading === true && !this.state.data) {
       return <PageLoading />;
     }
     if (this.state.error) {
@@ -83,6 +89,7 @@ class Badges extends React.Component {
           </div>
 
           <BadgesList badges={this.state.data} />
+          {this.state.loading ? <MiniLoader /> : null}
         </div>
       </React.Fragment>
     );
