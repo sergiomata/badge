@@ -6,7 +6,6 @@ import confLogo from '../images/badge-header.svg';
 import Gravatar from './Gravatar';
 
 class Badge extends React.Component {
-
   render() {
     return (
       <div className="Badge">
