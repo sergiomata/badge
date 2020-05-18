@@ -58,8 +58,6 @@ class Badges extends React.Component {
 
   }
 
-  componentWillUnmount() { }
-
   render() {
     if (this.state.loading === true && !this.state.data) {
       return <PageLoading />;

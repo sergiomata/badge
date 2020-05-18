@@ -1,6 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
 import "./styles/Badge.css";
 import confLogo from '../images/badge-header.svg';
 import Gravatar from './Gravatar';
